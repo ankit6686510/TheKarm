@@ -12,7 +12,6 @@ const ServiceCard = ({ icon, title, description, color }) => {
         {icon}
       </div>
       <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 mb-4">{description}</p>
       <ul className="space-y-2">
         {description.features.map((feature, index) => (
           <li key={index} className="flex items-start">
