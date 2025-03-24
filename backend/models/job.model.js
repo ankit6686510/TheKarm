@@ -1,32 +1,30 @@
 import mongoose from "mongoose";
 
+/**
+ * Job Schema
+ * Defines the structure for job listings in the application
+ */
 const jobSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
     description: {
         type: String,
         required: true
     },
-    //giving me *ucking errors
-    // category: {
-    //     type: String,
-    //     enum:['full-time', 'part-time', 'contract', 'internship','freelance'],
-    //     required: true
-    // },
     requirements: {
         type: [String],
         default: []
-      },
+    },
     salary: {
         type: String,
         required: false
     },
-    experienceLevel:{
-        type:String,
-        required:true,
+    experienceLevel: {
+        type: String,
+        required: true
     },
     location: {
         type: String,
@@ -53,8 +51,9 @@ const jobSchema = new mongoose.Schema({
     applications: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Application',
+            ref: 'Application'
         }
     ]
-},{timestamps:true});
+}, { timestamps: true });
+
 export const Job = mongoose.model("Job", jobSchema);

@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { APPLICATION_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 
-const shortlistingStatus = ["accepted", "rejected","pending"];
+const shortlistingStatus = ["accepted", "rejected", "pending"];
 
 const ApplicantsTable = () => {
   const { applicants } = useSelector((store) => store.application);
@@ -34,18 +34,20 @@ const ApplicantsTable = () => {
         // Update the status color
         setStatusColors((prevColors) => ({
           ...prevColors,
-          [id]: status === "Accepted" ? "bg-green-100" : "bg-red-100",
+          [id]: status === "accepted" ? "bg-green-100" : 
+                 status === "rejected" ? "bg-red-100" : 
+                 "bg-gray-100",
         }));
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to update status");
     }
   };
 
   return (
     <div>
       <Table>
-        <TableCaption>list of your recent applied user</TableCaption>
+        <TableCaption>List of applicants for your job postings</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>FullName</TableHead>
@@ -57,9 +59,9 @@ const ApplicantsTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {applicants &&
-            applicants?.applications?.map((item) => (
-              <tr
+          {applicants && applicants?.applications?.length > 0 ? (
+            applicants.applications.map((item) => (
+              <TableRow
                 key={item._id}
                 className={statusColors[item._id] || ""} // Apply dynamic background color
               >
@@ -69,12 +71,13 @@ const ApplicantsTable = () => {
                 <TableCell>
                   {item.applicant?.profile?.resume ? (
                     <a
-                      className="text-blue-600 cursor-pointer"
+                      className="text-blue-600 cursor-pointer hover:underline"
                       href={item?.applicant?.profile?.resume}
+                      download={item?.applicant?.profile?.resumeOriginalName || "resume.pdf"}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {item?.applicant?.profile?.resumeOriginalName}
+                      {item?.applicant?.profile?.resumeOriginalName || "Download Resume"}
                     </a>
                   ) : (
                     <span>N/A</span>
@@ -91,20 +94,29 @@ const ApplicantsTable = () => {
                         <div
                           onClick={() => statusHandler(status, item?._id)}
                           key={index}
-                          className={`flex w-fit items-center my-2 cursor-pointer ${
-                            status === "Accepted"
-                              ? "text-green-600"
-                              : "text-red-600"
+                          className={`flex w-fit items-center my-2 cursor-pointer px-2 py-1 rounded-md ${
+                            status === "accepted"
+                              ? "text-green-600 hover:bg-green-50"
+                              : status === "rejected"
+                              ? "text-red-600 hover:bg-red-50"
+                              : "text-gray-600 hover:bg-gray-50"
                           }`}
                         >
-                          <span>{status}</span>
+                          <span className="capitalize">{status}</span>
                         </div>
                       ))}
                     </PopoverContent>
                   </Popover>
                 </TableCell>
-              </tr>
-            ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={6} className="text-center py-4">
+                No applicants found
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

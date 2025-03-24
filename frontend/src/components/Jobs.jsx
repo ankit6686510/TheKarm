@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Navbar from "./shared/Navbar";
 import FilterCard from "./FilterCard";
@@ -6,10 +5,15 @@ import Job from "./Job";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
+/**
+ * Jobs Component
+ * Displays a grid of job listings with filtering capabilities
+ */
 const Jobs = () => {
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState([]);
 
+  // Filter jobs based on search query
   useEffect(() => {
     if (allJobs.length) {
       // Ensure searchedQuery is a string before using toLowerCase
@@ -35,12 +39,15 @@ const Jobs = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto mt-5">
         <div className="flex flex-col md:flex-row gap-5">
+          {/* Filter sidebar */}
           <div className="md:w-1/4">
             <FilterCard />
           </div>
+          
+          {/* Job listings */}
           <div className="md:flex-1 h-[88vh] overflow-y-auto pb-5">
             {filterJobs.length === 0 ? (
-              <span>No jobs found</span>
+              <span className="text-gray-500 font-medium">No jobs found</span>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filterJobs.map((job) => (
