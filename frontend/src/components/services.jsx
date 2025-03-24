@@ -60,111 +60,112 @@ const Services = () => {
 
   return (
     <div className="py-20 bg-white">
-      {/* Custom CSS for animations and effects */}
-      <style jsx>{`
-        .service-card {
-          transition: all 0.4s ease;
-          border: 1px solid #e5e7eb;
-          overflow: hidden;
-          position: relative;
-        }
-        
-        .service-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 4px;
-          height: 100%;
-          background: #6A38C2;
-          transform: scaleY(0);
-          transition: transform 0.4s ease;
-          transform-origin: bottom;
-        }
-        
-        .service-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-          border-color: #6A38C2;
-        }
-        
-        .service-card:hover::before {
-          transform: scaleY(1);
-        }
-        
-        .icon-container {
-          transition: all 0.3s ease;
-        }
-        
-        .service-card:hover .icon-container {
-          transform: scale(1.1);
-          background-color: #6A38C2;
-          color: white;
-        }
-        
-        .tab-button {
-          position: relative;
-          transition: all 0.3s ease;
-        }
-        
-        .tab-button::after {
-          content: '';
-          position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 100%;
-          height: 3px;
-          background-color: #6A38C2;
-          transform: scaleX(0);
-          transition: transform 0.3s ease;
-        }
-        
-        .tab-button.active {
-          color: #6A38C2;
-        }
-        
-        .tab-button.active::after {
-          transform: scaleX(1);
-        }
+      <style>
+        {`
+          .service-card {
+            transition: all 0.4s ease;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            position: relative;
+          }
+          
+          .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #6A38C2;
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+            transform-origin: bottom;
+          }
+          
+          .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+            border-color: #6A38C2;
+          }
+          
+          .service-card:hover::before {
+            transform: scaleY(1);
+          }
+          
+          .icon-container {
+            transition: all 0.3s ease;
+          }
+          
+          .service-card:hover .icon-container {
+            transform: scale(1.1);
+            background-color: #6A38C2;
+            color: white;
+          }
+          
+          .tab-button {
+            position: relative;
+            transition: all 0.3s ease;
+          }
+          
+          .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #6A38C2;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+          }
+          
+          .tab-button.active {
+            color: #6A38C2;
+          }
+          
+          .tab-button.active::after {
+            transform: scaleX(1);
+          }
 
-        .feature-item {
-          position: relative;
-          padding-left: 28px;
-          margin-bottom: 8px;
-        }
-        
-        .feature-item .feature-icon {
-          position: absolute;
-          left: 0;
-          top: 2px;
-          color: #6A38C2;
-        }
-        
-        .learn-more-link {
-          display: inline-flex;
-          align-items: center;
-          color: #6A38C2;
-          font-weight: 500;
-          transition: all 0.3s ease;
-        }
-        
-        .learn-more-link svg {
-          transition: transform 0.3s ease;
-        }
-        
-        .learn-more-link:hover svg {
-          transform: translateX(5px);
-        }
-        
-        .fade-in {
-          animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+          .feature-item {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 8px;
+          }
+          
+          .feature-item .feature-icon {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #6A38C2;
+          }
+          
+          .learn-more-link {
+            display: inline-flex;
+            align-items: center;
+            color: #6A38C2;
+            font-weight: 500;
+            transition: all 0.3s ease;
+          }
+          
+          .learn-more-link svg {
+            transition: transform 0.3s ease;
+          }
+          
+          .learn-more-link:hover svg {
+            transform: translateX(5px);
+          }
+          
+          .fade-in {
+            animation: fadeIn 0.5s ease-in;
+          }
+          
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}
+      </style>
 
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Section Header */}
