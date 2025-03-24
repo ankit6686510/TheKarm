@@ -26,8 +26,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('combined')); // Logs requests in a combined format
 
-// Security Middleware
-app.use(helmet()); // Adds security-related HTTP headers
+// Security Middleware with CSP configuration to allow Cloudinary
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https://res.cloudinary.com", "https://*.cloudinary.com"],
+        connectSrc: ["'self'", "https://api.cloudinary.com"],
+        fontSrc: ["'self'", "https: data:"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'"]
+      },
+    },
+  })
+);
 
 // Rate limiting middleware
 const limiter = rateLimit({
@@ -39,7 +52,9 @@ app.use(limiter);
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://thekarm.onrender.com',
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://thekarm.onrender.com' 
+    : ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
   credentials: true
 };
 app.use(cors(corsOptions));

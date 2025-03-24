@@ -1,7 +1,7 @@
 import React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Avatar, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { LogOut, User2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,7 @@ const Navbar = () => {
       }
     } catch (error) {
       console.log(error); // log the error
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Logout failed");
     }
   };
   return (
@@ -117,8 +117,11 @@ const Navbar = () => {
                 <Avatar className="cursor-pointer">
                   <AvatarImage
                     src={user?.profile?.profilePhoto}
-                    alt="@shadcn"
+                    alt={user?.fullname || "User"}
                   />
+                  <AvatarFallback className="bg-gray-200">
+                    <User2 className="h-4 w-4 text-gray-500" />
+                  </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80">
@@ -127,8 +130,11 @@ const Navbar = () => {
                     <Avatar className="cursor-pointer">
                       <AvatarImage
                         src={user?.profile?.profilePhoto}
-                        alt="@shadcn"
+                        alt={user?.fullname || "User"}
                       />
+                      <AvatarFallback className="bg-gray-200">
+                        <User2 className="h-4 w-4 text-gray-500" />
+                      </AvatarFallback>
                     </Avatar>
                     <div>
                       <h4 className="font-medium">{user?.fullname}</h4>
