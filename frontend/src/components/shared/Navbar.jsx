@@ -33,13 +33,15 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="bg-white">
+    <div className="bg-white shadow-sm sticky top-0 z-50">
       <style jsx>{`
         .nav-link {
           position: relative;
           display: inline-block;
           color: inherit;
           text-decoration: none;
+          font-weight: 500;
+          padding: 0.5rem 0.25rem;
           transition: color 0.3s ease;
         }
 
@@ -64,16 +66,27 @@ const Navbar = () => {
           transform: scaleX(1);
           transform-origin: bottom left;
         }
+
+        .logo {
+          transition: transform 0.3s ease;
+          display: inline-block;
+        }
+
+        .logo:hover {
+          transform: scale(1.05);
+        }
       `}</style>
-      <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
+      <div className="flex items-center justify-between mx-auto max-w-7xl px-4 h-16">
         <div>
-          <h1 className="text-4xl font-bold">
-            <span className="text-[#12343b]">Kar</span>
-            <span className="text-[#FFEA00]">m.</span>
-          </h1>
+          <Link to="/" className="logo">
+            <h1 className="text-4xl font-bold">
+              <span className="text-[#12343b]">Kar</span>
+              <span className="text-[#FFEA00]">m.</span>
+            </h1>
+          </Link>
         </div>
         <div className="flex items-center gap-12">
-          <ul className="flex font-medium items-center gap-5">
+          <ul className="flex font-medium items-center gap-6">
             {user && user.role === "recruiter" ? (
               <>
                 <li>
@@ -103,10 +116,10 @@ const Navbar = () => {
           {!user ? (
             <div className="flex items-center gap-3">
               <Link to="/login">
-                <Button variant="outline">Login</Button>
+                <Button variant="outline" className="font-medium transition-colors hover:text-[#6A38C2]">Login</Button>
               </Link>
               <Link to="/signup">
-                <Button className="bg-[#6A38C2] hover:bg-[#38225d]">
+                <Button className="bg-[#6A38C2] hover:bg-[#38225d] font-medium transition-all duration-300 transform hover:scale-105">
                   Signup
                 </Button>
               </Link>
@@ -114,48 +127,48 @@ const Navbar = () => {
           ) : (
             <Popover>
               <PopoverTrigger asChild>
-                <Avatar className="cursor-pointer">
+                <Avatar className="cursor-pointer border-2 border-transparent hover:border-[#6A38C2] transition-all duration-300">
                   <AvatarImage
                     src={user?.profile?.profilePhoto}
                     alt={user?.fullname || "User"}
                   />
-                  <AvatarFallback className="bg-gray-200">
-                    <User2 className="h-4 w-4 text-gray-500" />
+                  <AvatarFallback className="bg-[#f0f0f0]">
+                    <User2 className="h-4 w-4 text-gray-600" />
                   </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="w-80">
+              <PopoverContent className="w-80 p-4 shadow-lg rounded-lg border border-gray-200">
                 <div className="">
-                  <div className="flex gap-2 space-y-2">
-                    <Avatar className="cursor-pointer">
+                  <div className="flex gap-3 items-center mb-4">
+                    <Avatar className="h-12 w-12">
                       <AvatarImage
                         src={user?.profile?.profilePhoto}
                         alt={user?.fullname || "User"}
                       />
-                      <AvatarFallback className="bg-gray-200">
-                        <User2 className="h-4 w-4 text-gray-500" />
+                      <AvatarFallback className="bg-[#f0f0f0]">
+                        <User2 className="h-5 w-5 text-gray-600" />
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-medium">{user?.fullname}</h4>
-                      <p className="text-sm text-muted-foreground">
-                        {user?.profile?.bio}
+                      <h4 className="font-medium text-lg">{user?.fullname}</h4>
+                      <p className="text-sm text-muted-foreground line-clamp-1">
+                        {user?.profile?.bio || "No bio added yet"}
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col my-2 text-gray-600">
+                  <div className="flex flex-col my-2 text-gray-700 space-y-2">
                     {user && user.role === "student" && (
-                      <div className="flex w-fit items-center gap-2 cursor-pointer">
-                        <User2 />
-                        <Button variant="link">
+                      <div className="flex w-full items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors">
+                        <User2 className="h-5 w-5" />
+                        <Button variant="link" className="p-0 h-auto font-medium">
                           <Link to="/profile">View Profile</Link>
                         </Button>
                       </div>
                     )}
 
-                    <div className="flex w-fit items-center gap-2 cursor-pointer">
-                      <LogOut />
-                      <Button onClick={logoutHandler} variant="link">
+                    <div className="flex w-full items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors">
+                      <LogOut className="h-5 w-5" />
+                      <Button onClick={logoutHandler} variant="link" className="p-0 h-auto font-medium">
                         Logout
                       </Button>
                     </div>
