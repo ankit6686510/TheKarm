@@ -74,7 +74,6 @@ const Profile = () => {
               target="_blank"
               rel="noopener noreferrer"
               href={user?.profile?.resume}
-              download={user?.profile?.resumeOriginalName || "resume.pdf"}
               className="text-blue-500 w-full hover:underline cursor-pointer"
             >
               {user?.profile?.resumeOriginalName || "View Resume"}
