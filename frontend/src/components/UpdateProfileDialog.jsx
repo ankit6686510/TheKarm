@@ -9,12 +9,13 @@ import {
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, ImageIcon, FileIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
 import { toast } from "sonner";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const UpdateProfileDialog = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
@@ -26,11 +27,13 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     phoneNumber: user?.phoneNumber || "",
     bio: user?.profile?.bio || "",
     skills: user?.profile?.skills?.map((skill) => skill).join(",") || "",
-    file: null,
+    resumeFile: null,
+    profilePhotoFile: null,
   });
   
-  // Track the file name separately for display
-  const [fileName, setFileName] = useState(user?.profile?.resumeOriginalName || "");
+  // Track the file names separately for display
+  const [resumeFileName, setResumeFileName] = useState(user?.profile?.resumeOriginalName || "");
+  const [profileFileName, setProfileFileName] = useState("");
   
   const dispatch = useDispatch();
 
@@ -38,11 +41,29 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const fileChangeHandler = (e) => {
+  const resumeFileChangeHandler = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      setInput({ ...input, file });
-      setFileName(file.name);
+      setInput({ ...input, resumeFile: file });
+      setResumeFileName(file.name);
+    }
+  };
+  
+  const profilePhotoChangeHandler = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setInput({ ...input, profilePhotoFile: file });
+      setProfileFileName(file.name);
+      
+      // Show preview of the uploaded image
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const previewElement = document.getElementById('profile-preview');
+        if (previewElement) {
+          previewElement.src = e.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -56,9 +77,12 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     formData.append("bio", input.bio);
     formData.append("skills", input.skills);
     
-    if (input.file) {
-      // Make sure the file has the right content type
-      formData.append("file", input.file);
+    if (input.resumeFile) {
+      formData.append("resumeFile", input.resumeFile);
+    }
+    
+    if (input.profilePhotoFile) {
+      formData.append("profilePhotoFile", input.profilePhotoFile);
     }
     
     try {
@@ -99,6 +123,41 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
           </DialogHeader>
           <form onSubmit={submitHandler}>
             <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="profilePhotoFile" className="text-right">
+                  Profile Photo
+                </Label>
+                <div className="col-span-3">
+                  <div className="flex items-center space-x-4 mb-2">
+                    <Avatar className="h-16 w-16">
+                      <AvatarImage 
+                        id="profile-preview"
+                        src={user?.profile?.profilePhoto} 
+                        alt={user?.fullname || "Profile"} 
+                      />
+                      <AvatarFallback className="bg-gray-200">
+                        <ImageIcon className="h-8 w-8 text-gray-500" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <Input
+                        id="profilePhotoFile"
+                        name="profilePhotoFile"
+                        type="file"
+                        accept="image/*"
+                        onChange={profilePhotoChangeHandler}
+                        className="w-full"
+                      />
+                      {profileFileName && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          Selected: {profileFileName}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="fullname" className="text-right">
                   Name
@@ -163,21 +222,24 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="file" className="text-right">
+                <Label htmlFor="resumeFile" className="text-right">
                   Resume
                 </Label>
                 <div className="col-span-3">
-                  <Input
-                    id="file"
-                    name="file"
-                    type="file"
-                    accept="application/pdf"
-                    onChange={fileChangeHandler}
-                    className="w-full"
-                  />
-                  {fileName && (
+                  <div className="flex items-center space-x-2">
+                    <FileIcon className="h-5 w-5 text-gray-500" />
+                    <Input
+                      id="resumeFile"
+                      name="resumeFile"
+                      type="file"
+                      accept="application/pdf"
+                      onChange={resumeFileChangeHandler}
+                      className="w-full"
+                    />
+                  </div>
+                  {resumeFileName && (
                     <p className="text-xs text-gray-500 mt-1">
-                      Current file: {fileName}
+                      Current file: {resumeFileName}
                     </p>
                   )}
                 </div>

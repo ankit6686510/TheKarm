@@ -175,26 +175,49 @@ export const updateProfile = async (req, res) => {
                 success: false
             });
         }
+
+        // Process profile photo upload if file exists
+        if (req.files && req.files.profilePhotoFile) {
+            const profilePhotoFile = req.files.profilePhotoFile[0];
+            const fileUri = getDataUri(profilePhotoFile);
+            
+            // Upload to Cloudinary with specific settings for images
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+                resource_type: 'image',
+                folder: 'profile_photos',
+                format: profilePhotoFile.originalname.split('.').pop().toLowerCase(),
+                use_filename: true,
+                unique_filename: true,
+                transformation: [
+                    { width: 500, height: 500, crop: "limit" },
+                    { quality: "auto" }
+                ]
+            });
+
+            // Update profile photo
+            if (cloudResponse) {
+                user.profile.profilePhoto = cloudResponse.secure_url;
+            }
+        }
         
-        // Process file upload if file exists
-        if (req.file) {
-            // Process file upload
-            const file = req.file;
-            const fileUri = getDataUri(file);
+        // Process resume upload if file exists
+        if (req.files && req.files.resumeFile) {
+            const resumeFile = req.files.resumeFile[0];
+            const fileUri = getDataUri(resumeFile);
             
             // Upload to Cloudinary with specific resource_type and format for PDFs
             const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
                 resource_type: 'auto',
                 folder: 'resumes',
-                format: file.originalname.split('.').pop().toLowerCase(),
+                format: resumeFile.originalname.split('.').pop().toLowerCase(),
                 use_filename: true,
                 unique_filename: true
             });
 
-            // Update resume if file provided
+            // Update resume
             if (cloudResponse) {
                 user.profile.resume = cloudResponse.secure_url;
-                user.profile.resumeOriginalName = file.originalname;
+                user.profile.resumeOriginalName = resumeFile.originalname;
             }
         }
         

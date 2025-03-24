@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Navbar from "./shared/Navbar";
-import { Avatar, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { Contact, Mail, Pen } from "lucide-react";
+import { Contact, Mail, Pen, User } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
 import { useSelector } from "react-redux";
 import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
-
 
 const isResume = true;
 
@@ -26,9 +25,12 @@ const Profile = () => {
           <div className="flex items-center gap-4">
             <Avatar className="h-24 w-24">
               <AvatarImage
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-                alt="profile"
+                src={user?.profile?.profilePhoto}
+                alt={user?.fullname || "Profile"}
               />
+              <AvatarFallback className="bg-gray-200">
+                <User className="h-12 w-12 text-gray-500" />
+              </AvatarFallback>
             </Avatar>
             <div>
               <h1 className="font-medium text-xl">{user?.fullname}</h1>
