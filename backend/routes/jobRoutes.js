@@ -1,3 +1,9 @@
+const express = require('express');
+const router = express.Router();
+const { auth } = require('../middleware/auth');
 const { getJobRecommendations } = require('../controllers/jobController');
 
-router.get('/recommendations', auth, getJobRecommendations); 
+// Job recommendations route
+router.get('/recommendations', auth, getJobRecommendations);
+
+module.exports = router; 
