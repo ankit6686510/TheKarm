@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Label } from "./ui/label";
 import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "@/redux/jobSlice";
+import { Badge } from "./ui/badge";
+import { X } from "lucide-react";
 
 const filterData = [
   {
@@ -36,30 +38,104 @@ const FilterCard = () => {
     });
   };
 
+  const removeFilter = (filterType, value) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterType]: prevFilters[filterType].filter(item => item !== value)
+    }));
+  };
+
+  const clearAllFilters = () => {
+    setFilters({
+      Location: [],
+      Industry: [],
+      Salary: []
+    });
+  };
+
   useEffect(() => {
     dispatch(setSearchedQuery(filters));
   }, [filters, dispatch]);
 
+  const totalActiveFilters = Object.values(filters).flat().length;
+
   return (
-    <div className="w-full bg-white p-3 rounded-md">
-      <h1 className="font-bold text-lg">Filter Jobs</h1>
-      <hr className="mt-3" />
-      {filterData.map((data, index) => (
-        <div key={index} className="mb-4">
-          <h2 className="font-bold text-lg">{data.filterType}</h2>
-          {data.array.map((item, idx) => (
-            <div key={idx} className="flex items-center space-x-2 my-2">
-              <input
-                type="checkbox"
-                checked={filters[data.filterType].includes(item)}
-                onChange={() => changeHandler(data.filterType, item)}
-                id={`checkbox-${index}-${idx}`}
-              />
-              <Label htmlFor={`checkbox-${index}-${idx}`}>{item}</Label>
-            </div>
-          ))}
+    <div className="w-full bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="font-bold text-xl text-gray-800">Filter Jobs</h1>
+        {totalActiveFilters > 0 && (
+          <button 
+            onClick={clearAllFilters}
+            className="text-sm text-purple-600 hover:text-purple-700"
+          >
+            Clear all
+          </button>
+        )}
+      </div>
+
+      {/* Active Filters */}
+      {totalActiveFilters > 0 && (
+        <div className="mb-6">
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(filters).map(([type, values]) =>
+              values.map((value) => (
+                <Badge
+                  key={`${type}-${value}`}
+                  variant="outline"
+                  className="flex items-center gap-1 bg-purple-50 text-purple-700 border-purple-200"
+                >
+                  {value}
+                  <button
+                    onClick={() => removeFilter(type, value)}
+                    className="ml-1 hover:text-purple-900"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </Badge>
+              ))
+            )}
+          </div>
         </div>
-      ))}
+      )}
+
+      {/* Filter Sections */}
+      <div className="space-y-6">
+        {filterData.map((data, index) => (
+          <div key={index} className="space-y-3">
+            <h2 className="font-semibold text-gray-700">{data.filterType}</h2>
+            <div className="grid grid-cols-1 gap-2">
+              {data.array.map((item, idx) => (
+                <div
+                  key={idx}
+                  className={`flex items-center space-x-2 p-2 rounded-md transition-colors ${
+                    filters[data.filterType].includes(item)
+                      ? "bg-purple-50"
+                      : "hover:bg-gray-50"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={filters[data.filterType].includes(item)}
+                    onChange={() => changeHandler(data.filterType, item)}
+                    id={`checkbox-${index}-${idx}`}
+                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                  />
+                  <Label
+                    htmlFor={`checkbox-${index}-${idx}`}
+                    className={`text-sm cursor-pointer ${
+                      filters[data.filterType].includes(item)
+                        ? "text-purple-700 font-medium"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    {item}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

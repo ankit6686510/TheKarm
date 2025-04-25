@@ -13,49 +13,68 @@ const Jobs = () => {
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState([]);
 
-  // Filter jobs based on search query
+  // Filter jobs based on search query and filters
   useEffect(() => {
     if (allJobs.length) {
-      // Ensure searchedQuery is a string before using toLowerCase
-      const query = typeof searchedQuery === 'string' ? searchedQuery.toLowerCase() : '';
-      
-      if (query) {
-        const filteredJobs = allJobs.filter((job) => {
-          return (
-            job.title.toLowerCase().includes(query) ||
-            job.description.toLowerCase().includes(query) ||
-            job.location.toLowerCase().includes(query)
-          );
+      let filteredJobs = [...allJobs];
+
+      // Apply filters if they exist
+      if (searchedQuery && Object.keys(searchedQuery).length > 0) {
+        Object.entries(searchedQuery).forEach(([filterType, values]) => {
+          if (values.length > 0) {
+            filteredJobs = filteredJobs.filter((job) => {
+              if (filterType === "Location") {
+                return values.includes(job.location);
+              } else if (filterType === "Industry") {
+                return values.includes(job.title);
+              } else if (filterType === "Salary") {
+                return values.includes(job.salary);
+              }
+              return true;
+            });
+          }
         });
-        setFilterJobs(filteredJobs);
-      } else {
-        setFilterJobs(allJobs);
       }
+
+      setFilterJobs(filteredJobs);
     }
   }, [allJobs, searchedQuery]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-7xl mx-auto mt-5">
-        <div className="flex flex-col md:flex-row gap-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Filter sidebar */}
-          <div className="md:w-1/4">
+          <div className="lg:w-1/4">
             <FilterCard />
           </div>
           
           {/* Job listings */}
-          <div className="md:flex-1 h-[88vh] overflow-y-auto pb-5">
+          <div className="lg:flex-1">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-gray-800">
+                Available Jobs
+                {filterJobs.length > 0 && (
+                  <span className="text-gray-500 text-lg ml-2">
+                    ({filterJobs.length})
+                  </span>
+                )}
+              </h1>
+            </div>
+            
             {filterJobs.length === 0 ? (
-              <span className="text-gray-500 font-medium">No jobs found</span>
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">No jobs found matching your criteria</p>
+                <p className="text-gray-400 text-sm mt-2">Try adjusting your filters</p>
+              </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filterJobs.map((job) => (
                   <motion.div
                     key={job?._id}
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -100 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     <Job job={job} />
