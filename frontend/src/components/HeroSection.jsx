@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Search, ArrowRight, CheckCircle2, Users, Briefcase, Clock } from "lucide-react";
+import { Search, ArrowRight, CheckCircle2, Users, Briefcase, Clock, TrendingUp, Award } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "@/redux/jobSlice";
 import { useNavigate } from "react-router-dom";
@@ -67,35 +67,83 @@ const HeroSection = () => {
             </Button>
           </div>
 
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-16">
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Users className="w-6 h-6 text-purple-600" />
+                <span className="text-3xl font-bold text-gray-900">10K+</span>
+              </div>
+              <p className="text-sm text-gray-600">Active Users</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Briefcase className="w-6 h-6 text-purple-600" />
+                <span className="text-3xl font-bold text-gray-900">5K+</span>
+              </div>
+              <p className="text-sm text-gray-600">Job Listings</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <CheckCircle2 className="w-6 h-6 text-purple-600" />
+                <span className="text-3xl font-bold text-gray-900">95%</span>
+              </div>
+              <p className="text-sm text-gray-600">Success Rate</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <TrendingUp className="w-6 h-6 text-purple-600" />
+                <span className="text-3xl font-bold text-gray-900">50+</span>
+              </div>
+              <p className="text-sm text-gray-600">Companies</p>
+            </div>
+          </div>
+
           {/* Key Features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
-            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
-              <Users className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Active Community</h3>
-              <p className="text-gray-600">Join thousands of students and professionals</p>
+            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                  <Users className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold">Active Community</h3>
+              </div>
+              <p className="text-gray-600">Join thousands of students and professionals in our growing community.</p>
             </div>
-            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
-              <Briefcase className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Flexible Jobs</h3>
-              <p className="text-gray-600">Work on your own schedule</p>
+            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                  <Briefcase className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold">Flexible Jobs</h3>
+              </div>
+              <p className="text-gray-600">Work on your own schedule with our flexible job opportunities.</p>
             </div>
-            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
-              <Clock className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Quick Apply</h3>
-              <p className="text-gray-600">Get hired in minutes</p>
+            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                  <Award className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold">Career Growth</h3>
+              </div>
+              <p className="text-gray-600">Build your career with opportunities for learning and advancement.</p>
             </div>
           </div>
 
           {/* Call to Action */}
           <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 text-white max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Ready to Start Your Journey?</h2>
-            <p className="mb-6">Create your profile and get matched with the perfect opportunities</p>
-            <Button 
-              className="bg-white text-purple-600 hover:bg-purple-100 transition-colors duration-200"
-              onClick={() => navigate("/signup")}
-            >
-              Get Started <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h2 className="text-2xl font-bold mb-2">Ready to Start Your Journey?</h2>
+                <p className="text-purple-100">Create your profile and get matched with the perfect opportunities</p>
+              </div>
+              <Button 
+                className="bg-white text-purple-600 hover:bg-purple-100 transition-colors duration-200 whitespace-nowrap"
+                onClick={() => window.location.href = "https://thekarm.onrender.com/profile"}
+              >
+                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
