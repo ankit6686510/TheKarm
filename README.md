@@ -1,6 +1,9 @@
 # Karm - Job Portal Platform
 # live link: https://thekarm.onrender.com
 
+# update on 25-03-2025
+# update on 25-04-225
+
 ## Project Overview
 
 Karm is a comprehensive job portal platform built with the MERN stack (MongoDB, Express.js, React.js, Node.js). It serves as a bridge connecting job seekers with employers, facilitating the entire recruitment process from job posting to application management.
