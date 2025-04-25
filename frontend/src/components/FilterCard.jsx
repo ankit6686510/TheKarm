@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Label } from "./ui/label";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchedQuery } from "@/redux/jobSlice";
 import { Badge } from "./ui/badge";
-import { X } from "lucide-react";
+import { X, Search, Save, RotateCcw } from "lucide-react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 const filterData = [
   {
@@ -20,13 +23,35 @@ const filterData = [
   },
 ];
 
+const defaultFilters = {
+  Location: [],
+  Industry: [],
+  Salary: []
+};
+
 const FilterCard = () => {
-  const [filters, setFilters] = useState({
-    Location: [],
-    Industry: [],
-    Salary: []
-  });
+  const { allJobs } = useSelector((store) => store.job);
+  const [filters, setFilters] = useState(defaultFilters);
+  const [searchText, setSearchText] = useState("");
+  const [filterCounts, setFilterCounts] = useState({});
   const dispatch = useDispatch();
+
+  // Calculate filter counts
+  useEffect(() => {
+    const counts = {};
+    filterData.forEach(({ filterType, array }) => {
+      counts[filterType] = {};
+      array.forEach(item => {
+        counts[filterType][item] = allJobs.filter(job => {
+          if (filterType === "Location") return job.location === item;
+          if (filterType === "Industry") return job.title === item;
+          if (filterType === "Salary") return job.salary === item;
+          return false;
+        }).length;
+      });
+    });
+    setFilterCounts(counts);
+  }, [allJobs]);
 
   const changeHandler = (filterType, value) => {
     setFilters(prevFilters => {
@@ -46,16 +71,29 @@ const FilterCard = () => {
   };
 
   const clearAllFilters = () => {
-    setFilters({
-      Location: [],
-      Industry: [],
-      Salary: []
-    });
+    setFilters(defaultFilters);
+    setSearchText("");
+    toast.success("All filters cleared");
+  };
+
+  const saveFilters = () => {
+    localStorage.setItem('savedFilters', JSON.stringify(filters));
+    toast.success("Filters saved successfully");
+  };
+
+  const loadSavedFilters = () => {
+    const saved = localStorage.getItem('savedFilters');
+    if (saved) {
+      setFilters(JSON.parse(saved));
+      toast.success("Saved filters loaded");
+    } else {
+      toast.info("No saved filters found");
+    }
   };
 
   useEffect(() => {
-    dispatch(setSearchedQuery(filters));
-  }, [filters, dispatch]);
+    dispatch(setSearchedQuery({ ...filters, searchText }));
+  }, [filters, searchText, dispatch]);
 
   const totalActiveFilters = Object.values(filters).flat().length;
 
@@ -63,14 +101,42 @@ const FilterCard = () => {
     <div className="w-full bg-white p-6 rounded-lg shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-bold text-xl text-gray-800">Filter Jobs</h1>
-        {totalActiveFilters > 0 && (
-          <button 
-            onClick={clearAllFilters}
-            className="text-sm text-purple-600 hover:text-purple-700"
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={loadSavedFilters}
+            className="text-purple-600 hover:text-purple-700"
           >
-            Clear all
-          </button>
-        )}
+            <Save className="w-4 h-4 mr-1" />
+            Load Saved
+          </Button>
+          {totalActiveFilters > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={clearAllFilters}
+              className="text-purple-600 hover:text-purple-700"
+            >
+              <RotateCcw className="w-4 h-4 mr-1" />
+              Reset
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Search Input */}
+      <div className="mb-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Input
+            type="text"
+            placeholder="Search jobs..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
 
       {/* Active Filters */}
@@ -107,35 +173,51 @@ const FilterCard = () => {
               {data.array.map((item, idx) => (
                 <div
                   key={idx}
-                  className={`flex items-center space-x-2 p-2 rounded-md transition-colors ${
+                  className={`flex items-center justify-between p-2 rounded-md transition-colors ${
                     filters[data.filterType].includes(item)
                       ? "bg-purple-50"
                       : "hover:bg-gray-50"
                   }`}
                 >
-                  <input
-                    type="checkbox"
-                    checked={filters[data.filterType].includes(item)}
-                    onChange={() => changeHandler(data.filterType, item)}
-                    id={`checkbox-${index}-${idx}`}
-                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-                  />
-                  <Label
-                    htmlFor={`checkbox-${index}-${idx}`}
-                    className={`text-sm cursor-pointer ${
-                      filters[data.filterType].includes(item)
-                        ? "text-purple-700 font-medium"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    {item}
-                  </Label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={filters[data.filterType].includes(item)}
+                      onChange={() => changeHandler(data.filterType, item)}
+                      id={`checkbox-${index}-${idx}`}
+                      className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                    />
+                    <Label
+                      htmlFor={`checkbox-${index}-${idx}`}
+                      className={`text-sm cursor-pointer ${
+                        filters[data.filterType].includes(item)
+                          ? "text-purple-700 font-medium"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {item}
+                    </Label>
+                  </div>
+                  <span className="text-xs text-gray-400">
+                    {filterCounts[data.filterType]?.[item] || 0} jobs
+                  </span>
                 </div>
               ))}
             </div>
           </div>
         ))}
       </div>
+
+      {/* Save Filters Button */}
+      {totalActiveFilters > 0 && (
+        <Button
+          onClick={saveFilters}
+          className="w-full mt-6 bg-purple-600 hover:bg-purple-700"
+        >
+          <Save className="w-4 h-4 mr-2" />
+          Save Current Filters
+        </Button>
+      )}
     </div>
   );
 };

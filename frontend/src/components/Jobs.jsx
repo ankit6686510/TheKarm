@@ -4,6 +4,7 @@ import FilterCard from "./FilterCard";
 import Job from "./Job";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 /**
  * Jobs Component
@@ -12,16 +13,30 @@ import { motion } from "framer-motion";
 const Jobs = () => {
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState([]);
+  const [sortBy, setSortBy] = useState("newest");
 
   // Filter jobs based on search query and filters
   useEffect(() => {
     if (allJobs.length) {
       let filteredJobs = [...allJobs];
 
+      // Apply text search if exists
+      if (searchedQuery?.searchText) {
+        const searchText = searchedQuery.searchText.toLowerCase();
+        filteredJobs = filteredJobs.filter((job) => {
+          return (
+            job.title.toLowerCase().includes(searchText) ||
+            job.description.toLowerCase().includes(searchText) ||
+            job.location.toLowerCase().includes(searchText) ||
+            job.company.name.toLowerCase().includes(searchText)
+          );
+        });
+      }
+
       // Apply filters if they exist
       if (searchedQuery && Object.keys(searchedQuery).length > 0) {
         Object.entries(searchedQuery).forEach(([filterType, values]) => {
-          if (values.length > 0) {
+          if (Array.isArray(values) && values.length > 0) {
             filteredJobs = filteredJobs.filter((job) => {
               if (filterType === "Location") {
                 return values.includes(job.location);
@@ -36,9 +51,27 @@ const Jobs = () => {
         });
       }
 
+      // Apply sorting
+      filteredJobs.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        switch (sortBy) {
+          case "newest":
+            return dateB - dateA;
+          case "oldest":
+            return dateA - dateB;
+          case "salary-high":
+            return parseInt(b.salary) - parseInt(a.salary);
+          case "salary-low":
+            return parseInt(a.salary) - parseInt(b.salary);
+          default:
+            return dateB - dateA;
+        }
+      });
+
       setFilterJobs(filteredJobs);
     }
-  }, [allJobs, searchedQuery]);
+  }, [allJobs, searchedQuery, sortBy]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -52,7 +85,7 @@ const Jobs = () => {
           
           {/* Job listings */}
           <div className="lg:flex-1">
-            <div className="mb-6">
+            <div className="flex items-center justify-between mb-6">
               <h1 className="text-2xl font-bold text-gray-800">
                 Available Jobs
                 {filterJobs.length > 0 && (
@@ -61,6 +94,20 @@ const Jobs = () => {
                   </span>
                 )}
               </h1>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Sort by:</span>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="newest">Newest First</SelectItem>
+                    <SelectItem value="oldest">Oldest First</SelectItem>
+                    <SelectItem value="salary-high">Salary (High to Low)</SelectItem>
+                    <SelectItem value="salary-low">Salary (Low to High)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             
             {filterJobs.length === 0 ? (
