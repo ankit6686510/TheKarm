@@ -16,14 +16,14 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-purple-100 to-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-b from-purple-100 to-white dark:from-gray-900 dark:to-gray-950 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Main Hero Content */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <span className="inline-block px-3 sm:px-4 py-1 sm:py-2 rounded-full bg-purple-200 text-black font-semibold text-xs sm:text-sm mb-4 sm:mb-8 animate-[scaleFadeIn_1.2s_ease-out_forwards]">
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-2 rounded-full bg-purple-200 dark:bg-gray-800 text-black dark:text-yellow-200 font-semibold text-xs sm:text-sm mb-4 sm:mb-8 animate-[scaleFadeIn_1.2s_ease-out_forwards]">
             Your Go-To Job Marketplace
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 sm:mb-6 lg:mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-4 sm:mb-6 lg:mb-8">
             <span className="block animate-[fadeInSlideUp_1s_ease-out_forwards]">
               Explore, Apply & 
             </span>
@@ -46,17 +46,17 @@ const HeroSection = () => {
               </svg>
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
             Find flexible jobs that fit your schedule and skills. Start your journey to success today.
           </p>
           
           {/* Search Bar */}
-          <div className="flex max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4 bg-white rounded-full shadow-lg border border-yellow-400 items-center gap-2 sm:gap-4 overflow-hidden">
+          <div className="flex max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-yellow-400 dark:border-yellow-600 items-center gap-2 sm:gap-4 overflow-hidden">
             <input
               type="text"
               placeholder="Find Your First Job"
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 py-3 sm:py-4 px-4 sm:px-6 bg-transparent outline-none border-none text-base sm:text-lg min-w-0"
+              className="flex-1 py-3 sm:py-4 px-4 sm:px-6 bg-transparent outline-none border-none text-base sm:text-lg min-w-0 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400"
             />
             <Button
               onClick={searchJobHandler}
@@ -70,28 +70,28 @@ const HeroSection = () => {
 
           {/* Stats Section */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
-            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 <span className="text-2xl sm:text-3xl font-bold text-gray-900">10K+</span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Active Users</p>
             </div>
-            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 <span className="text-2xl sm:text-3xl font-bold text-gray-900">5K+</span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Job Listings</p>
             </div>
-            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 <span className="text-2xl sm:text-3xl font-bold text-gray-900">95%</span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Success Rate</p>
             </div>
-            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 <span className="text-2xl sm:text-3xl font-bold text-gray-900">50+</span>
@@ -102,7 +102,7 @@ const HeroSection = () => {
 
           {/* Key Features */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
-            <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+            <div className="p-4 sm:p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow group">
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
                   <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
@@ -111,7 +111,7 @@ const HeroSection = () => {
               </div>
               <p className="text-sm sm:text-base text-gray-600">Join thousands of students and professionals in our growing community.</p>
             </div>
-            <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+            <div className="p-4 sm:p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow group">
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
                   <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
@@ -120,7 +120,7 @@ const HeroSection = () => {
               </div>
               <p className="text-sm sm:text-base text-gray-600">Work on your own schedule with our flexible job opportunities.</p>
             </div>
-            <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+            <div className="p-4 sm:p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow group">
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
                   <Award className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
@@ -132,7 +132,7 @@ const HeroSection = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-6 sm:p-8 text-white max-w-3xl mx-auto px-4">
+          <div className="bg-gradient-to-r from-purple-600 to-purple-800 dark:from-yellow-700 dark:to-yellow-900 rounded-2xl p-6 sm:p-8 text-white max-w-3xl mx-auto px-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
               <div className="text-center sm:text-left">
                 <h2 className="text-xl sm:text-2xl font-bold mb-2">Ready to Start Your Journey?</h2>

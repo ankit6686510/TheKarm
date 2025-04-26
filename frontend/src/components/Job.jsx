@@ -18,7 +18,7 @@ const Job = ({ job }) => {
     };
 
     return (
-        <div className='p-4 sm:p-6 rounded-xl shadow-lg bg-white border border-gray-200 hover:shadow-xl transition-all duration-300 group flex flex-col h-full min-h-[410px]'>
+        <div className='p-4 sm:p-6 rounded-xl shadow-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group flex flex-col h-full min-h-[410px]'>
             {/* Header Section */}
             <div className='flex items-center justify-between mb-3 sm:mb-4'>
                 <span className='text-xs sm:text-sm text-gray-500 flex items-center gap-2'>
@@ -49,8 +49,8 @@ const Job = ({ job }) => {
                     </AvatarFallback>
                 </Avatar>
                 <div>
-                    <h2 className='font-semibold text-base sm:text-lg text-gray-800'>{job?.company?.name}</h2>
-                    <p className='text-xs sm:text-sm text-gray-500 flex items-center gap-1'>
+                    <h2 className='font-semibold text-base sm:text-lg text-gray-800 dark:text-gray-100'>{job?.company?.name}</h2>
+                    <p className='text-xs sm:text-sm text-gray-500 dark:text-gray-300 flex items-center gap-1'>
                         <MapPin className="w-3 h-3 sm:w-4 sm:h-4 inline" /> India
                     </p>
                 </div>
@@ -58,29 +58,29 @@ const Job = ({ job }) => {
 
             {/* Job Details Section */}
             <div className='mb-3 sm:mb-4 flex-1'>
-                <h1 className='font-bold text-lg sm:text-xl text-gray-900 mb-1 sm:mb-2 group-hover:text-purple-700 transition-colors'>
+                <h1 className='font-bold text-lg sm:text-xl text-gray-900 dark:text-gray-100 mb-1 sm:mb-2 group-hover:text-purple-400 transition-colors'>
                     {job?.title}
                 </h1>
-                <p className='text-xs sm:text-sm text-gray-600 line-clamp-2'>{job?.description}</p>
+                <p className='text-xs sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2'>{job?.description}</p>
             </div>
 
             {/* Job Metadata Section */}
             <div className='flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4'>
                 <Badge 
                     variant="outline" 
-                    className="flex items-center gap-1 text-blue-700 border-blue-200 bg-blue-50 text-xs sm:text-sm"
+                    className="flex items-center gap-1 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-400 bg-blue-50 dark:bg-blue-900 text-xs sm:text-sm"
                 >
                     <Briefcase className="w-3 h-3 sm:w-4 sm:h-4" /> {job?.position} Positions
                 </Badge>
                 <Badge 
                     variant="outline" 
-                    className="flex items-center gap-1 text-red-700 border-red-200 bg-red-50 text-xs sm:text-sm"
+                    className="flex items-center gap-1 text-red-700 dark:text-red-300 border-red-200 dark:border-red-400 bg-red-50 dark:bg-red-900 text-xs sm:text-sm"
                 >
                     {job?.jobType}
                 </Badge>
                 <Badge 
                     variant="outline" 
-                    className="flex items-center gap-1 text-purple-700 border-purple-200 bg-purple-50 text-xs sm:text-sm"
+                    className="flex items-center gap-1 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-400 bg-purple-50 dark:bg-purple-900 text-xs sm:text-sm"
                 >
                     <DollarSign className="w-3 h-3 sm:w-4 sm:h-4" /> {job?.salary} LPA
                 </Badge>
