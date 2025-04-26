@@ -237,7 +237,7 @@ const Signup = () => {
                           value={input.fullname}
                           name="fullname"
                           onChange={changeEventHandler}
-                          placeholder="John Doe"
+                          placeholder="Ankit Jha"
                           className={`pl-10 py-2 ${errors.fullname ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "border-gray-300 focus:ring-purple-500 focus:border-purple-500"}`}
                           required
                         />
