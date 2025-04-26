@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { LogOut, User2, Menu, X, Sun, Moon } from "lucide-react";
+import { LogOut, User2, Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -15,12 +15,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark');
-    }
-    return false;
-  });
 
   console.log(user);
 
@@ -39,31 +33,6 @@ const Navbar = () => {
       toast.error(error.response?.data?.message || "Logout failed");
     }
   };
-
-  const toggleDarkMode = () => {
-    const html = document.documentElement;
-    if (html.classList.contains('dark')) {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      setIsDark(false);
-    } else {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      setIsDark(true);
-    }
-  };
-
-  React.useEffect(() => {
-    // On mount, set theme from localStorage
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    } else {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    }
-  }, []);
 
   return (
     <div className="bg-white shadow-sm sticky top-0 z-50">
@@ -110,23 +79,13 @@ const Navbar = () => {
         }
       `}</style>
       <div className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
-        <div className="flex items-center gap-4">
+        <div>
           <Link to="/" className="logo">
             <h1 className="text-3xl sm:text-4xl font-bold">
-              <span className="text-[#12343b] dark:text-yellow-300">Kar</span>
-              <span className="text-[#FFEA00] dark:text-yellow-400">m.</span>
+              <span className="text-[#12343b]">Kar</span>
+              <span className="text-[#FFEA00]">m.</span>
             </h1>
           </Link>
-          {/* Dark mode toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="Toggle dark mode"
-            onClick={toggleDarkMode}
-            className="ml-2"
-          >
-            {isDark ? <Sun className="h-5 w-5 text-yellow-400" /> : <Moon className="h-5 w-5 text-gray-700" />}
-          </Button>
         </div>
 
         {/* Mobile Menu Button */}
