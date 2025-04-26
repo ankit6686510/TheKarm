@@ -10,7 +10,7 @@ import { USER_API_END_POINT } from '@/utils/constant'
 import { toast } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, setUser } from '@/redux/authSlice'
-import { Loader2, Mail, Lock, LogIn, Eye, EyeOff } from 'lucide-react'
+import { Loader2, Mail, Lock, LogIn, Eye, EyeOff, UserCircle, AlertCircle } from 'lucide-react'
 
 const Login = () => {
     const [input, setInput] = useState({
@@ -22,6 +22,7 @@ const Login = () => {
     const { loading, user } = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState({});
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -69,20 +70,20 @@ const Login = () => {
             <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-gray-100">
                 <div className="w-full max-w-md px-4 py-8 mx-auto md:py-12">
                     <div className="overflow-hidden bg-white rounded-xl shadow-xl">
-                        <div className="p-6 sm:p-8">
-                            <div className="flex flex-col items-center mb-8 text-center">
-                                <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-purple-100">
-                                    <LogIn className="w-6 h-6 text-purple-600" />
+                        <div className="p-4 sm:p-6 md:p-8">
+                            <div className="flex flex-col items-center mb-6 sm:mb-8 text-center">
+                                <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 mb-3 sm:mb-4 rounded-full bg-purple-100">
+                                    <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                                 </div>
-                                <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
-                                <p className="mt-2 text-sm text-gray-500">Sign in to your account</p>
+                                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Welcome Back</h1>
+                                <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-500">Sign in to your account</p>
                             </div>
                             
-                            <form onSubmit={submitHandler} className="space-y-5">
-                                <div className="space-y-4">
+                            <form onSubmit={submitHandler} className="space-y-4 sm:space-y-5">
+                                <div className="space-y-3 sm:space-y-4">
                                     {/* Email Input */}
                                     <div>
-                                        <Label htmlFor="email" className="block mb-1.5 text-sm font-medium text-gray-700">
+                                        <Label htmlFor="email" className="block mb-1 text-xs sm:text-sm font-medium text-gray-700">
                                             Email Address
                                         </Label>
                                         <div className="relative">
@@ -96,15 +97,23 @@ const Login = () => {
                                                 value={input.email}
                                                 onChange={changeEventHandler}
                                                 placeholder="you@example.com"
-                                                className="pl-10 py-2 border-gray-300 focus:ring-purple-500 focus:border-purple-500"
+                                                className="pl-10 py-1.5 sm:py-2 text-xs sm:text-sm border-gray-300 focus:ring-purple-500 focus:border-purple-500"
                                                 required
                                             />
+                                            {errors.email && (
+                                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                                    <AlertCircle className="w-4 h-4 text-red-500" />
+                                                </div>
+                                            )}
                                         </div>
+                                        {errors.email && (
+                                            <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                                        )}
                                     </div>
                                     
                                     {/* Password Input */}
                                     <div>
-                                        <Label htmlFor="password" className="block mb-1.5 text-sm font-medium text-gray-700">
+                                        <Label htmlFor="password" className="block mb-1 text-xs sm:text-sm font-medium text-gray-700">
                                             Password
                                         </Label>
                                         <div className="relative">
@@ -118,7 +127,7 @@ const Login = () => {
                                                 value={input.password}
                                                 onChange={changeEventHandler}
                                                 placeholder="••••••••"
-                                                className="pl-10 py-2 border-gray-300 focus:ring-purple-500 focus:border-purple-500"
+                                                className="pl-10 py-1.5 sm:py-2 text-xs sm:text-sm border-gray-300 focus:ring-purple-500 focus:border-purple-500"
                                                 required
                                             />
                                             <button
@@ -126,18 +135,21 @@ const Login = () => {
                                                 onClick={() => setShowPassword(!showPassword)}
                                                 className="absolute inset-y-0 right-0 flex items-center pr-3"
                                             >
-                                                {showPassword ? <EyeOff size={18} className="text-gray-400" /> : <Eye size={18} className="text-gray-400" />}
+                                                {showPassword ? <EyeOff className="w-4 h-4 text-gray-400" /> : <Eye className="w-4 h-4 text-gray-400" />}
                                             </button>
                                         </div>
+                                        {errors.password && (
+                                            <p className="mt-1 text-xs text-red-500">{errors.password}</p>
+                                        )}
                                     </div>
                                     
-                                    {/* Account Type Selection */}
+                                    {/* Role Selection */}
                                     <div>
-                                        <Label className="block mb-1.5 text-sm font-medium text-gray-700">
+                                        <Label className="block mb-1 text-xs sm:text-sm font-medium text-gray-700">
                                             Account Type
                                         </Label>
-                                        <div className="grid grid-cols-2 gap-4 mt-1">
-                                            <div className={`flex items-center p-3 border rounded-lg cursor-pointer ${input.role === "student" ? "bg-purple-50 border-purple-500" : "border-gray-200 hover:bg-gray-50"}`}>
+                                        <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-1">
+                                            <div className={`flex items-center p-2 sm:p-3 border rounded-lg cursor-pointer ${input.role === "student" ? "bg-purple-50 border-purple-500" : "border-gray-200 hover:bg-gray-50"}`}>
                                                 <Input
                                                     type="radio"
                                                     name="role"
@@ -147,11 +159,11 @@ const Login = () => {
                                                     className="w-4 h-4 text-purple-600 cursor-pointer focus:ring-purple-500"
                                                     required
                                                 />
-                                                <Label htmlFor="student" className="ml-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                                <Label htmlFor="student" className="ml-2 text-xs sm:text-sm font-medium text-gray-700 cursor-pointer">
                                                     Student
                                                 </Label>
                                             </div>
-                                            <div className={`flex items-center p-3 border rounded-lg cursor-pointer ${input.role === "recruiter" ? "bg-purple-50 border-purple-500" : "border-gray-200 hover:bg-gray-50"}`}>
+                                            <div className={`flex items-center p-2 sm:p-3 border rounded-lg cursor-pointer ${input.role === "recruiter" ? "bg-purple-50 border-purple-500" : "border-gray-200 hover:bg-gray-50"}`}>
                                                 <Input
                                                     type="radio"
                                                     name="role"
@@ -161,34 +173,37 @@ const Login = () => {
                                                     className="w-4 h-4 text-purple-600 cursor-pointer focus:ring-purple-500"
                                                     required
                                                 />
-                                                <Label htmlFor="recruiter" className="ml-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                                <Label htmlFor="recruiter" className="ml-2 text-xs sm:text-sm font-medium text-gray-700 cursor-pointer">
                                                     Recruiter
                                                 </Label>
                                             </div>
                                         </div>
+                                        {errors.role && (
+                                            <p className="mt-1 text-xs text-red-500">{errors.role}</p>
+                                        )}
                                     </div>
                                 </div>
                                 
                                 {/* Submit Button */}
                                 {loading ? (
-                                    <Button disabled className="w-full py-2.5 bg-purple-600 text-white rounded-lg shadow-sm hover:bg-purple-700 flex justify-center items-center">
-                                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                                        <span>Signing in...</span>
+                                    <Button disabled className="w-full py-2 sm:py-2.5 bg-purple-600 text-white rounded-lg shadow-sm hover:bg-purple-700 flex justify-center items-center">
+                                        <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin" />
+                                        <span className="text-xs sm:text-sm">Signing in...</span>
                                     </Button>
                                 ) : (
                                     <Button 
                                         type="submit" 
-                                        className="w-full py-2.5 bg-purple-600 text-white rounded-lg shadow-sm hover:bg-purple-700 flex justify-center items-center"
+                                        className="w-full py-2 sm:py-2.5 bg-purple-600 text-white rounded-lg shadow-sm hover:bg-purple-700 flex justify-center items-center"
                                     >
-                                        Sign In
+                                        <span className="text-xs sm:text-sm">Sign In</span>
                                     </Button>
                                 )}
                                 
                                 {/* Signup Link */}
-                                <div className="mt-4 text-center text-sm text-gray-600">
+                                <div className="mt-4 text-center text-xs sm:text-sm text-gray-600">
                                     Don't have an account?{" "}
                                     <Link to="/signup" className="font-medium text-purple-600 hover:text-purple-500">
-                                        Create one
+                                        Sign up
                                     </Link>
                                 </div>
                             </form>

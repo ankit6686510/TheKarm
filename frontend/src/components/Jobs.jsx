@@ -76,8 +76,8 @@ const Jobs = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
           {/* Filter sidebar */}
           <div className="lg:w-1/4">
             <FilterCard />
@@ -85,19 +85,19 @@ const Jobs = () => {
           
           {/* Job listings */}
           <div className="lg:flex-1">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold text-gray-800">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 mb-4 sm:mb-6">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
                 Available Jobs
                 {filterJobs.length > 0 && (
-                  <span className="text-gray-500 text-lg ml-2">
+                  <span className="text-gray-500 text-base sm:text-lg ml-2">
                     ({filterJobs.length})
                   </span>
                 )}
               </h1>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
                 <span className="text-sm text-gray-600">Sort by:</span>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
@@ -111,12 +111,12 @@ const Jobs = () => {
             </div>
             
             {filterJobs.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No jobs found matching your criteria</p>
+              <div className="text-center py-8 sm:py-12">
+                <p className="text-gray-500 text-base sm:text-lg">No jobs found matching your criteria</p>
                 <p className="text-gray-400 text-sm mt-2">Try adjusting your filters</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {filterJobs.map((job) => (
                   <motion.div
                     key={job?._id}

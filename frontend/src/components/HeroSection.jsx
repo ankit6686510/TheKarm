@@ -16,14 +16,14 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-purple-100 to-white py-20 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-b from-purple-100 to-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Main Hero Content */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-full bg-purple-200 text-black font-semibold text-sm mb-8 animate-[scaleFadeIn_1.2s_ease-out_forwards]">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-2 rounded-full bg-purple-200 text-black font-semibold text-xs sm:text-sm mb-4 sm:mb-8 animate-[scaleFadeIn_1.2s_ease-out_forwards]">
             Your Go-To Job Marketplace
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 sm:mb-6 lg:mb-8">
             <span className="block animate-[fadeInSlideUp_1s_ease-out_forwards]">
               Explore, Apply & 
             </span>
@@ -46,99 +46,99 @@ const HeroSection = () => {
               </svg>
             </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
             Find flexible jobs that fit your schedule and skills. Start your journey to success today.
           </p>
           
           {/* Search Bar */}
-          <div className="relative max-w-2xl mx-auto mb-16">
+          <div className="relative max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
             <input
               type="text"
               placeholder="Find Your First Job"
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full py-4 px-6 rounded-full shadow-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-lg"
+              className="w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full shadow-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-base sm:text-lg"
             />
             <Button
               onClick={searchJobHandler}
-              className="absolute right-2 top-2 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors duration-200 py-2 px-6"
+              className="absolute right-2 top-1.5 sm:top-2 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors duration-200 py-1.5 sm:py-2 px-4 sm:px-6 text-sm sm:text-base"
             >
-              <Search className="h-6 w-6 mr-2" />
+              <Search className="h-4 w-4 sm:h-6 sm:w-6 mr-1 sm:mr-2" />
               <span>Search</span>
             </Button>
           </div>
 
           {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-16">
-            <div className="bg-white p-6 rounded-xl shadow-md">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Users className="w-6 h-6 text-purple-600" />
-                <span className="text-3xl font-bold text-gray-900">10K+</span>
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">10K+</span>
               </div>
-              <p className="text-sm text-gray-600">Active Users</p>
+              <p className="text-xs sm:text-sm text-gray-600">Active Users</p>
             </div>
-            <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Briefcase className="w-6 h-6 text-purple-600" />
-                <span className="text-3xl font-bold text-gray-900">5K+</span>
+                <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">5K+</span>
               </div>
-              <p className="text-sm text-gray-600">Job Listings</p>
+              <p className="text-xs sm:text-sm text-gray-600">Job Listings</p>
             </div>
-            <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <CheckCircle2 className="w-6 h-6 text-purple-600" />
-                <span className="text-3xl font-bold text-gray-900">95%</span>
+                <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">95%</span>
               </div>
-              <p className="text-sm text-gray-600">Success Rate</p>
+              <p className="text-xs sm:text-sm text-gray-600">Success Rate</p>
             </div>
-            <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <TrendingUp className="w-6 h-6 text-purple-600" />
-                <span className="text-3xl font-bold text-gray-900">50+</span>
+                <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">50+</span>
               </div>
-              <p className="text-sm text-gray-600">Companies</p>
+              <p className="text-xs sm:text-sm text-gray-600">Companies</p>
             </div>
           </div>
 
           {/* Key Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
-            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
-                  <Users className="w-6 h-6 text-purple-600" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
+            <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold">Active Community</h3>
+                <h3 className="text-lg sm:text-xl font-semibold">Active Community</h3>
               </div>
-              <p className="text-gray-600">Join thousands of students and professionals in our growing community.</p>
+              <p className="text-sm sm:text-base text-gray-600">Join thousands of students and professionals in our growing community.</p>
             </div>
-            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
-                  <Briefcase className="w-6 h-6 text-purple-600" />
+            <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                  <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold">Flexible Jobs</h3>
+                <h3 className="text-lg sm:text-xl font-semibold">Flexible Jobs</h3>
               </div>
-              <p className="text-gray-600">Work on your own schedule with our flexible job opportunities.</p>
+              <p className="text-sm sm:text-base text-gray-600">Work on your own schedule with our flexible job opportunities.</p>
             </div>
-            <div className="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
-                  <Award className="w-6 h-6 text-purple-600" />
+            <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold">Career Growth</h3>
+                <h3 className="text-lg sm:text-xl font-semibold">Career Growth</h3>
               </div>
-              <p className="text-gray-600">Build your career with opportunities for learning and advancement.</p>
+              <p className="text-sm sm:text-base text-gray-600">Build your career with opportunities for learning and advancement.</p>
             </div>
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 text-white max-w-3xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <h2 className="text-2xl font-bold mb-2">Ready to Start Your Journey?</h2>
-                <p className="text-purple-100">Create your profile and get matched with the perfect opportunities</p>
+          <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-6 sm:p-8 text-white max-w-3xl mx-auto px-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+              <div className="text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Ready to Start Your Journey?</h2>
+                <p className="text-purple-100 text-sm sm:text-base">Create your profile and get matched with the perfect opportunities</p>
               </div>
               <Button 
-                className="bg-white text-purple-600 hover:bg-purple-100 transition-colors duration-200 whitespace-nowrap"
+                className="bg-white text-purple-600 hover:bg-purple-100 transition-colors duration-200 whitespace-nowrap text-sm sm:text-base"
                 onClick={() => window.location.href = "https://thekarm.onrender.com/profile"}
               >
                 Get Started <ArrowRight className="ml-2 h-4 w-4" />

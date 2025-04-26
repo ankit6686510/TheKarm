@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { LogOut, User2 } from "lucide-react";
+import { LogOut, User2, Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -14,6 +14,7 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   console.log(user);
 
@@ -32,6 +33,7 @@ const Navbar = () => {
       toast.error(error.response?.data?.message || "Logout failed");
     }
   };
+
   return (
     <div className="bg-white shadow-sm sticky top-0 z-50">
       <style jsx>{`
@@ -76,16 +78,30 @@ const Navbar = () => {
           transform: scale(1.05);
         }
       `}</style>
-      <div className="flex items-center justify-between mx-auto max-w-7xl px-4 h-16">
+      <div className="flex items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
         <div>
           <Link to="/" className="logo">
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-3xl sm:text-4xl font-bold">
               <span className="text-[#12343b]">Kar</span>
               <span className="text-[#FFEA00]">m.</span>
             </h1>
           </Link>
         </div>
-        <div className="flex items-center gap-12">
+
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="h-10 w-10"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center gap-12">
           <ul className="flex font-medium items-center gap-6">
             {user && user.role === "recruiter" ? (
               <>
@@ -179,6 +195,90 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-white border-t border-gray-200">
+          <div className="px-4 py-3 space-y-4">
+            <ul className="flex flex-col font-medium space-y-3">
+              {user && user.role === "recruiter" ? (
+                <>
+                  <li>
+                    <Link className="nav-link block" to="/admin/companies" onClick={() => setIsMobileMenuOpen(false)}>Companies</Link>
+                  </li>
+                  <li>
+                    <Link className="nav-link block" to="/admin/jobs" onClick={() => setIsMobileMenuOpen(false)}>Jobs</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link className="nav-link block" to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                  </li>
+                  <li>
+                    <Link className="nav-link block" to="/jobs" onClick={() => setIsMobileMenuOpen(false)}>Jobs</Link>
+                  </li>
+                  <li>
+                    <Link className="nav-link block" to="/browse" onClick={() => setIsMobileMenuOpen(false)}>Browse</Link>
+                  </li>
+                  <li>
+                    <Link className="nav-link block" to="/services" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
+                  </li>
+                </>
+              )}
+            </ul>
+            {!user ? (
+              <div className="flex flex-col gap-3 pt-4">
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full font-medium transition-colors hover:text-[#6A38C2]">Login</Button>
+                </Link>
+                <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full bg-[#6A38C2] hover:bg-[#38225d] font-medium transition-all duration-300">
+                    Signup
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="pt-4">
+                <div className="flex items-center gap-3 mb-4">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage
+                      src={user?.profile?.profilePhoto}
+                      alt={user?.fullname || "User"}
+                    />
+                    <AvatarFallback className="bg-[#f0f0f0]">
+                      <User2 className="h-5 w-5 text-gray-600" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h4 className="font-medium">{user?.fullname}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {user?.profile?.bio || "No bio added yet"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  {user && user.role === "student" && (
+                    <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button variant="ghost" className="w-full justify-start">
+                        <User2 className="mr-2 h-5 w-5" />
+                        View Profile
+                      </Button>
+                    </Link>
+                  )}
+                  <Button variant="ghost" className="w-full justify-start text-red-600" onClick={() => {
+                    logoutHandler();
+                    setIsMobileMenuOpen(false);
+                  }}>
+                    <LogOut className="mr-2 h-5 w-5" />
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
