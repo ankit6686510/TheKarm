@@ -51,18 +51,19 @@ const HeroSection = () => {
           </p>
           
           {/* Search Bar */}
-          <div className="relative max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4">
+          <div className="flex max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4 bg-white rounded-full shadow-lg border border-yellow-400 items-center gap-2 sm:gap-4 overflow-hidden">
             <input
               type="text"
               placeholder="Find Your First Job"
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full py-3 sm:py-4 px-4 sm:px-6 rounded-full shadow-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-base sm:text-lg"
+              className="flex-1 py-3 sm:py-4 px-4 sm:px-6 bg-transparent outline-none border-none text-base sm:text-lg min-w-0"
             />
             <Button
               onClick={searchJobHandler}
-              className="absolute right-2 top-1.5 sm:top-2 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors duration-200 py-1.5 sm:py-2 px-4 sm:px-6 text-sm sm:text-base"
+              className="flex items-center gap-2 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors duration-200 py-2 px-6 text-sm sm:text-base text-white font-semibold shadow-none"
+              type="button"
             >
-              <Search className="h-4 w-4 sm:h-6 sm:w-6 mr-1 sm:mr-2" />
+              <Search className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>Search</span>
             </Button>
           </div>

@@ -18,7 +18,7 @@ const Job = ({ job }) => {
     };
 
     return (
-        <div className='p-4 sm:p-6 rounded-xl shadow-lg bg-white border border-gray-200 hover:shadow-xl transition-all duration-300 group'>
+        <div className='p-4 sm:p-6 rounded-xl shadow-lg bg-white border border-gray-200 hover:shadow-xl transition-all duration-300 group flex flex-col h-full min-h-[410px]'>
             {/* Header Section */}
             <div className='flex items-center justify-between mb-3 sm:mb-4'>
                 <span className='text-xs sm:text-sm text-gray-500 flex items-center gap-2'>
@@ -57,7 +57,7 @@ const Job = ({ job }) => {
             </div>
 
             {/* Job Details Section */}
-            <div className='mb-3 sm:mb-4'>
+            <div className='mb-3 sm:mb-4 flex-1'>
                 <h1 className='font-bold text-lg sm:text-xl text-gray-900 mb-1 sm:mb-2 group-hover:text-purple-700 transition-colors'>
                     {job?.title}
                 </h1>
@@ -87,16 +87,16 @@ const Job = ({ job }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className='flex flex-col sm:flex-row items-center gap-2 sm:gap-3'>
+            <div className='flex flex-col sm:flex-row flex-wrap items-center gap-2 sm:gap-3 mt-auto min-w-0'>
                 <Button
                     onClick={() => navigate(`/description/${job?._id}`)}
                     variant="outline"
-                    className="w-full sm:w-auto hover:bg-gray-100 transition-colors text-sm sm:text-base"
+                    className="w-full sm:w-auto min-w-0 hover:bg-gray-100 transition-colors text-sm sm:text-base"
                 >
                     View Details
                 </Button>
                 <Button 
-                    className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 transition-colors text-sm sm:text-base" 
+                    className="w-full sm:w-auto min-w-0 bg-purple-600 hover:bg-purple-700 transition-colors text-sm sm:text-base" 
                     aria-label="Save job for later"
                 >
                     Save For Later
