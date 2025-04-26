@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Search, ArrowRight, CheckCircle2, Users, Briefcase, Clock, TrendingUp, Award } from "lucide-react";
+import {
+  Search,
+  ArrowRight,
+  CheckCircle2,
+  Users,
+  Briefcase,
+  Clock,
+  TrendingUp,
+  Award,
+} from "lucide-react";
 import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "@/redux/jobSlice";
 import { useNavigate } from "react-router-dom";
@@ -25,10 +34,10 @@ const HeroSection = () => {
           </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 sm:mb-6 lg:mb-8">
             <span className="block animate-[fadeInSlideUp_1s_ease-out_forwards]">
-              Explore, Apply & 
+              Explore, Apply &
             </span>
             <span className="block animate-[fadeInSlideUp_1s_ease-out_forwards] [animation-delay:0.3s]">
-              Earn While 
+              Earn While
             </span>
             <span className="text-yellow-500 inline-block relative animate-[fadeInSlideUp_1s_ease-out_forwards] [animation-delay:0.6s]">
               You Learn
@@ -47,9 +56,10 @@ const HeroSection = () => {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
-            Find flexible jobs that fit your schedule and skills. Start your journey to success today.
+            Find flexible jobs that fit your schedule and skills. Start your
+            journey to success today.
           </p>
-          
+
           {/* Search Bar */}
           <div className="flex max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-4 bg-white rounded-full shadow-lg border border-yellow-400 items-center gap-2 sm:gap-4 overflow-hidden">
             <input
@@ -73,28 +83,36 @@ const HeroSection = () => {
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
-                <span className="text-2xl sm:text-3xl font-bold text-gray-900">10K+</span>
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">
+                  10K+
+                </span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Active Users</p>
             </div>
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
-                <span className="text-2xl sm:text-3xl font-bold text-gray-900">5K+</span>
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">
+                  5K+
+                </span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Job Listings</p>
             </div>
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
-                <span className="text-2xl sm:text-3xl font-bold text-gray-900">95%</span>
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">
+                  95%
+                </span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Success Rate</p>
             </div>
             <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
-                <span className="text-2xl sm:text-3xl font-bold text-gray-900">50+</span>
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">
+                  50+
+                </span>
               </div>
               <p className="text-xs sm:text-sm text-gray-600">Companies</p>
             </div>
@@ -107,27 +125,41 @@ const HeroSection = () => {
                 <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
                   <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold">Active Community</h3>
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  Active Community
+                </h3>
               </div>
-              <p className="text-sm sm:text-base text-gray-600">Join thousands of students and professionals in our growing community.</p>
+              <p className="text-sm sm:text-base text-gray-600">
+                Join thousands of students and professionals in our growing
+                community.
+              </p>
             </div>
             <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
                   <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold">Flexible Jobs</h3>
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  Flexible Jobs
+                </h3>
               </div>
-              <p className="text-sm sm:text-base text-gray-600">Work on your own schedule with our flexible job opportunities.</p>
+              <p className="text-sm sm:text-base text-gray-600">
+                Work on your own schedule with our flexible job opportunities.
+              </p>
             </div>
             <div className="p-4 sm:p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow group">
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div className="p-2 sm:p-3 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors">
                   <Award className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold">Career Growth</h3>
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  Career Growth
+                </h3>
               </div>
-              <p className="text-sm sm:text-base text-gray-600">Build your career with opportunities for learning and advancement.</p>
+              <p className="text-sm sm:text-base text-gray-600">
+                Build your career with opportunities for learning and
+                advancement.
+              </p>
             </div>
           </div>
 
@@ -135,12 +167,20 @@ const HeroSection = () => {
           <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-6 sm:p-8 text-white max-w-3xl mx-auto px-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
               <div className="text-center sm:text-left">
-                <h2 className="text-xl sm:text-2xl font-bold mb-2">Ready to Start Your Journey?</h2>
-                <p className="text-purple-100 text-sm sm:text-base">Create your profile and get matched with the perfect opportunities</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">
+                  Ready to Start Your Journey?
+                </h2>
+                <p className="text-purple-100 text-sm sm:text-base">
+                  Create your profile and get matched with the perfect
+                  opportunities
+                </p>
               </div>
-              <Button 
+              <Button
                 className="bg-white text-purple-600 hover:bg-purple-100 transition-colors duration-200 whitespace-nowrap text-sm sm:text-base"
-                onClick={() => window.location.href = "https://thekarm.onrender.com/profile"}
+                onClick={() =>
+                  (window.location.href =
+                    "https://thekarm.onrender.com/profile")
+                }
               >
                 Get Started <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -153,8 +193,6 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-
 
 // will implement this code
 
@@ -224,8 +262,7 @@ export default HeroSection;
 
 // export default HeroSection;
 
-
-//the original one 
+//the original one
 
 // import React, { useState } from "react";
 // import { Button } from "./ui/button";
