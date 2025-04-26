@@ -235,7 +235,7 @@ const Signup = () => {
                         name="fullname"
                         value={input.fullname}
                         onChange={changeEventHandler}
-                        placeholder="John Doe"
+                        placeholder="ankit jha"
                         className="pl-10 py-1.5 sm:py-2 text-xs sm:text-sm border-gray-300 focus:ring-purple-500 focus:border-purple-500"
                         required
                       />
