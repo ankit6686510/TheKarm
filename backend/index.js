@@ -34,9 +34,10 @@ app.use(
         defaultSrc: ["'self'"],
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com", "https://*.cloudinary.com"],
         connectSrc: ["'self'", "https://api.cloudinary.com"],
-        fontSrc: ["'self'", "https: data:"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        styleSrc: ["'self'", "'unsafe-inline'"]
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https: data:"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.google.com/recaptcha/", "https://www.gstatic.com/recaptcha/"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        frameSrc: ["https://www.google.com/recaptcha/"]
       },
     },
   })
